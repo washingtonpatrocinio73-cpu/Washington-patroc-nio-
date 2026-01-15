@@ -1,0 +1,30 @@
+import streamlit as st
+from gtts import gTTS
+import os
+
+# Configuração da Interface WLP
+st.set_page_config(page_title="Iara WLP", page_icon="⚡")
+st.title("🤖 Sistema WLP - Interface Iara")
+st.subheader("Status: Potência Máxima Ativada")
+
+# Base de Conhecimento da Iara
+conhecimento = {
+    "olá": "Olá! Sistema WLP online e pronto para agir.",
+    "potência": "A potência do sistema está em cem por cento!",
+    "wlp": "WLP é o nosso ecossistema de tecnologia e performance.",
+    "quem é você": "Eu sou a Iara, a inteligência estratégica do projeto WLP."
+}
+
+# Campo de Comando
+comando = st.text_input("Digite sua ordem para a Iara:")
+
+if comando:
+    # Processa a resposta
+    resposta = conhecimento.get(comando.lower(), "Comando recebido. Processando dados no sistema WLP...")
+    
+    st.info(f"Iara diz: {resposta}")
+    
+    # Gera a Voz (Potência testada no Colab)
+    tts = gTTS(text=resposta, lang='pt-br')
+    tts.save("voz_iara.mp3")
+    st.audio("voz_iara.mp3", format="audio/mp3")
